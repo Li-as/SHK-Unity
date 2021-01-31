@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour
+public class GameEndHandler : MonoBehaviour
 {
-    public static GameController controller;
+    public static GameEndHandler controller;
 
     public GameObject go;
     public GameObject a;

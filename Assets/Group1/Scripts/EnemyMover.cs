@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class e : MonoBehaviour
+public class EnemyMover : MonoBehaviour
 {
     private Vector3 Target;
 
