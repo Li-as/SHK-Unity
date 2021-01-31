@@ -4,19 +4,25 @@ using UnityEngine;
 
 public class EnemyMover : MonoBehaviour
 {
-    private Vector3 Target;
+    [SerializeField] private float _speed;
 
-    // Start is called before the first frame update
-    void Start()
+    private Vector3 _targetPosition;
+
+    private void Start()
     {
-        Target = Random.insideUnitCircle * 4;
+        _targetPosition = GetNewTargetPosition();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, Target, 2 * Time.deltaTime);
-        if (transform.position == Target)
-            Target = Random.insideUnitCircle * 4    ;
+        transform.position = Vector3.MoveTowards(transform.position, _targetPosition, _speed * Time.deltaTime);
+
+        if (transform.position == _targetPosition)
+            _targetPosition = GetNewTargetPosition();
+    }
+
+    private Vector3 GetNewTargetPosition()
+    {
+        return Random.insideUnitCircle * 4;
     }
 }

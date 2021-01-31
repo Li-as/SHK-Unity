@@ -4,35 +4,27 @@ using UnityEngine;
 
 public class GameEndHandler : MonoBehaviour
 {
-    public static GameEndHandler controller;
+    [SerializeField] private SpriteRenderer _endScreen;
+    [SerializeField] private Player _player;
+    [SerializeField] private Transform _enemiesContainer;
 
-    public GameObject go;
-    public GameObject a;
-    public GameObject[] B;
-
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
-        controller = this;
+        _player.EnemyKilled += OnEnemyKilled;
     }
 
-    public void End()
+    private void OnDisable()
     {
-        go.SetActive(true);
+        _player.EnemyKilled -= OnEnemyKilled;
     }
 
-    // Update is called once per frame
-    void Update(){
-        foreach (var b in B)
+    private void OnEnemyKilled()
+    {
+        Enemy[] enemies = _enemiesContainer.GetComponentsInChildren<Enemy>();
+        if (enemies.Length == 0)
         {
-            if (b == null)
-                continue;
-
-                if (Vector3.Distance(a.gameObject.gameObject.GetComponent<Transform>().position, b.gameObject.gameObject.transform.position) < 0.2f)
-                {
-                    a.SendMessage("SendMEssage", b);
-                }
-
+            _endScreen.gameObject.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 }

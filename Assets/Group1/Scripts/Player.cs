@@ -1,65 +1,57 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
-    public float spEed;
-    public bool timer;
-    public float time;
-    // Use this for initialization
+    [SerializeField] private float _speed;
+    [SerializeField] private List<Enemy> _enemies;
 
+    private float _speedMultiplier = 1;
 
-    void Start()
+    public event UnityAction EnemyKilled;
+
+    private void Update()
     {
-    }
-    // Update is called once per frame
-    void Update(){
-        if (timer)
+        foreach (Enemy enemy in _enemies)
         {
-            time -= Time.deltaTime;
-            if(time < 0)
-   {
-                timer = false;
-                spEed /= 2;
+            if (Vector3.Distance(transform.position, enemy.transform.position) < 0.2f)
+            {
+                enemy.Die();
+                EnemyKilled?.Invoke();
             }
         }
 
-        GameObject[] result = GameObject.FindGameObjectsWithTag("Enemy");
-
-        if(result.Length == 0)
-        {
-            GameEndHandler.controller.End();
-            enabled = false;
-        }
-
-        if (Input.GetKey(KeyCode.W))
-            transform.Translate(0, spEed * Time.deltaTime, 0);
-
-        if (Input.GetKey(KeyCode.S))
-            transform.Translate(0, -spEed * Time.deltaTime, 0);
-
-        if (Input.GetKey(KeyCode.A))
-            transform.Translate(-spEed * Time.deltaTime, 0, 0);
-
-        if (Input.GetKey(KeyCode.D))
-            transform.Translate(spEed * Time.deltaTime, 0, 0);
+        Vector2 direction = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")).normalized;
+        transform.Translate(direction * _speed * _speedMultiplier * Time.deltaTime);
     }
 
-    public void SendMEssage(GameObject b)
+    public void ApplyBoost(Boost boost)
     {
+        if (boost is SpeedBoost speedBoost)
+            _speedMultiplier *= speedBoost.SpeedMultiplier;
 
+        StartCoroutine(WaitForEndOfBoost(boost));
+    }
 
-        if(b.name == "enemy")
+    private void RemoveBoost(Boost boost)
+    {
+        if (boost is SpeedBoost speedBoost)
+            _speedMultiplier /= speedBoost.SpeedMultiplier;
+    }
+
+    private IEnumerator WaitForEndOfBoost(Boost boost)
+    {
+        float elapsedTime = 0;
+
+        while (elapsedTime < boost.Duration)
         {
-            Destroy(b);
-        }if(b.name == "speed")
-        {
-            spEed *= 2;
-            timer = true;
-            time = 2;
-
-
-
+            elapsedTime += Time.deltaTime;
+            yield return null;
         }
+
+        RemoveBoost(boost);
+        yield break;
     }
 }
