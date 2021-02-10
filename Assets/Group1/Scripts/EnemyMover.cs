@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyMover : MonoBehaviour
 {
     [SerializeField] private float _speed;
+    [SerializeField] private float _movementRadius = 4;
 
     private Vector3 _targetPosition;
 
@@ -23,6 +24,6 @@ public class EnemyMover : MonoBehaviour
 
     private Vector3 GetNewTargetPosition()
     {
-        return Random.insideUnitCircle * 4;
+        return Random.insideUnitCircle * _movementRadius;
     }
 }

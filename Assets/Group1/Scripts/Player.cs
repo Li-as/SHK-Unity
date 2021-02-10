@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float _speed;
+    [SerializeField] private float _killRange = 0.2f;
     [SerializeField] private List<Enemy> _enemies;
 
     private float _speedMultiplier = 1;
@@ -16,7 +17,7 @@ public class Player : MonoBehaviour
     {
         foreach (Enemy enemy in _enemies)
         {
-            if (Vector3.Distance(transform.position, enemy.transform.position) < 0.2f)
+            if (Vector3.Distance(transform.position, enemy.transform.position) < _killRange)
             {
                 enemy.Die();
                 EnemyKilled?.Invoke();
@@ -27,21 +28,13 @@ public class Player : MonoBehaviour
         transform.Translate(direction * _speed * _speedMultiplier * Time.deltaTime);
     }
 
-    public void ApplyBoost(Boost boost)
+    public void ApplySpeedBoost(SpeedBoost boost)
     {
-        if (boost is SpeedBoost speedBoost)
-            _speedMultiplier *= speedBoost.SpeedMultiplier;
-
-        StartCoroutine(WaitForEndOfBoost(boost));
+        _speedMultiplier *= boost.SpeedMultiplier;
+        StartCoroutine(WaitForEndOfSpeedBoost(boost));
     }
 
-    private void RemoveBoost(Boost boost)
-    {
-        if (boost is SpeedBoost speedBoost)
-            _speedMultiplier /= speedBoost.SpeedMultiplier;
-    }
-
-    private IEnumerator WaitForEndOfBoost(Boost boost)
+    private IEnumerator WaitForEndOfSpeedBoost(SpeedBoost boost)
     {
         float elapsedTime = 0;
 
@@ -51,7 +44,7 @@ public class Player : MonoBehaviour
             yield return null;
         }
 
-        RemoveBoost(boost);
+        _speedMultiplier /= boost.SpeedMultiplier;
         yield break;
     }
 }
