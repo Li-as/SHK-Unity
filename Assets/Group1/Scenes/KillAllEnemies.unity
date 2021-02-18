@@ -188,6 +188,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 650483017}
     m_Modifications:
+    - target: {fileID: 114607845280961790, guid: 330eba42b9b469a41a6fa31c8f5d9a57,
+        type: 3}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 1761935012}
     - target: {fileID: 2043604733712232883, guid: 330eba42b9b469a41a6fa31c8f5d9a57,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -298,8 +303,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _endScreen: {fileID: 1054253063}
-  _player: {fileID: 1761935012}
-  _enemiesContainer: {fileID: 650483017}
+  _enemies:
+  - {fileID: 2043604735655191272}
+  - {fileID: 1235700335}
+  - {fileID: 1322345096}
+  - {fileID: 389182026}
 --- !u!4 &394885521
 Transform:
   m_ObjectHideFlags: 0
@@ -516,6 +524,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 650483017}
     m_Modifications:
+    - target: {fileID: 114607845280961790, guid: 330eba42b9b469a41a6fa31c8f5d9a57,
+        type: 3}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 1761935012}
     - target: {fileID: 2043604733712232883, guid: 330eba42b9b469a41a6fa31c8f5d9a57,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -603,6 +616,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 650483017}
     m_Modifications:
+    - target: {fileID: 114607845280961790, guid: 330eba42b9b469a41a6fa31c8f5d9a57,
+        type: 3}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 1761935012}
     - target: {fileID: 2043604733712232883, guid: 330eba42b9b469a41a6fa31c8f5d9a57,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -776,11 +794,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 4
-  _enemies:
-  - {fileID: 2043604735655191272}
-  - {fileID: 1235700335}
-  - {fileID: 1322345096}
-  - {fileID: 389182026}
+  _killRange: 0.2
 --- !u!4 &2083640148 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2043604733712232883, guid: 330eba42b9b469a41a6fa31c8f5d9a57,
@@ -794,6 +808,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 650483017}
     m_Modifications:
+    - target: {fileID: 114607845280961790, guid: 330eba42b9b469a41a6fa31c8f5d9a57,
+        type: 3}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 1761935012}
     - target: {fileID: 2043604733712232883, guid: 330eba42b9b469a41a6fa31c8f5d9a57,
         type: 3}
       propertyPath: m_LocalPosition.x
