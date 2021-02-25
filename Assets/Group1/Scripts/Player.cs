@@ -20,16 +20,13 @@ public class Player : MonoBehaviour
 
     public void ApplySpeedBoost(SpeedBoost boost)
     {
-        _speedMultiplier *= boost.SpeedMultiplier;
         StartCoroutine(WaitForEndOfSpeedBoost(boost));
     }
 
     private IEnumerator WaitForEndOfSpeedBoost(SpeedBoost boost)
     {
+        _speedMultiplier *= boost.SpeedMultiplier;
         yield return new WaitForSeconds(boost.Duration);
-
         _speedMultiplier /= boost.SpeedMultiplier;
-
-        yield break;
     }
 }
