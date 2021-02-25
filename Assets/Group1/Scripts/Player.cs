@@ -6,11 +6,8 @@ using UnityEngine.Events;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float _speed;
-    [SerializeField] private float _killRange = 0.2f;
 
     private float _speedMultiplier = 1;
-
-    public float KillRange => _killRange;
 
     private void Update()
     {
